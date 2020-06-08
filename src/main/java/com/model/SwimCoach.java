@@ -1,14 +1,27 @@
 package com.model;
 
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 
+
+@Getter
 @Setter
-@AllArgsConstructor
 public class SwimCoach implements Coach {
 
+    @Value("${foo.email}")
+    private String email;
+
+
+    @Value("${foo.team}")
+    private String team;
+
     private FortuneService fortuneService;
+
+    public SwimCoach(FortuneService fortuneService) {
+        this.fortuneService = fortuneService;
+    }
 
     @Override
     public String getDailyWorkout() {
@@ -19,4 +32,5 @@ public class SwimCoach implements Coach {
     public String getDailyFortune() {
         return fortuneService.getFortune();
     }
+
 }
